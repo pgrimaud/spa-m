@@ -22,7 +22,7 @@
             <li>{{ category.name }} ({{ category.pets|length }})</li>
             <ul>
                 {% for pet in category.pets %}
-                    <li>{{ pet.name }} - {{ pet.birthDate|date('Y') }}</li>
+                    <li>{{ pet.name }} - {{ pet.user.firstName }}</li>
                 {% endfor %}
             </ul>
         {% endfor %}
