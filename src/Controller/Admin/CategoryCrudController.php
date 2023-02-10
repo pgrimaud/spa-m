@@ -2,18 +2,17 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Pet;
+use App\Entity\Category;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class PetCrudController extends AbstractCrudController
+class CategoryCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Pet::class;
+        return Category::class;
     }
 
     public function configureFields(string $pageName): iterable
@@ -21,9 +20,11 @@ class PetCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('name'),
-            DateField::new('birthDate'),
-            AssociationField::new('user'),
-            AssociationField::new('category'),
+            ImageField::new('pictureUrl')
+                ->setUploadDir('public/uploads/categories')
+                ->setBasePath('uploads/categories')
+                ->setUploadedFileNamePattern('[randomhash].[extension]')
         ];
     }
+
 }

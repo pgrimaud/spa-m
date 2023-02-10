@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
+#[ApiResource]
 class Category
 {
     #[ORM\Id]
@@ -20,6 +22,9 @@ class Category
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Pet::class, orphanRemoval: true)]
     private Collection $pets;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $pictureUrl = null;
 
     public function __construct()
     {
@@ -76,5 +81,17 @@ class Category
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    public function getPictureUrl(): ?string
+    {
+        return $this->pictureUrl;
+    }
+
+    public function setPictureUrl(string $pictureUrl): self
+    {
+        $this->pictureUrl = $pictureUrl;
+
+        return $this;
     }
 }
